@@ -5,12 +5,10 @@ from FileReader import FileReader
 
 def main(args=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config")
+    parser.add_argument("--config", default='config.dat')
     args = parser.parse_args()
 
-    configFile = args.config if args.config else "config.dat"
-
-    watchingFiles = FileReader(configFile).readFileLines()
+    watchingFiles = FileReader(args.config).readFileLines()
 
     for file in watchingFiles:
         print(file)

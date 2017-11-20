@@ -3,11 +3,12 @@ sys.path.insert(0, "./src")
 from FileReader import FileReader
 
 def main(args=None):
-    """The main routine."""
     if args is None:
         args = sys.argv[1:]
 
-    watchingFiles = FileReader(args[0]).readFileLines()
+    configFile = args[0] if len(args) > 0 else "config.dat"
+
+    watchingFiles = FileReader(configFile).readFileLines()
 
     for file in watchingFiles:
         print(file)

@@ -1,12 +1,14 @@
 import os.path, sys
+import argparse
 sys.path.insert(0, "./src")
 from FileReader import FileReader
 
 def main(args=None):
-    if args is None:
-        args = sys.argv[1:]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config")
+    args = parser.parse_args()
 
-    configFile = args[0] if len(args) > 0 else "config.dat"
+    configFile = args.config if args.config else "config.dat"
 
     watchingFiles = FileReader(configFile).readFileLines()
 

@@ -3,7 +3,7 @@ import argparse
 
 sys.path.insert(0, "./src")
 from ConfigurationService import ConfigurationService
-from CopyService import CopyService
+from BackupService import BackupService
 
 def list(args):
     ConfigurationService().listWatchingFiles(args.config)
@@ -15,19 +15,15 @@ def delete(args):
     ConfigurationService().removeWatchingFile(args.config, args.delete)
 
 def backup(args):
-    watching = ConfigurationService().getFilesToWatch(args.storePath, args.config)
-
-    for file in watching:
-        if file.isFileChanged():
-            CopyService().copyFileSnapshot(file)
+    BackupService().backup(args.storePath, args.config)
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", default='config.dat')
-    parser.add_argument("--storePath", default='.')
-    parser.add_argument("--list", action = "store_true")
-    parser.add_argument("--add")
-    parser.add_argument("--delete")
+    parser.add_argument('--config', default='config.dat', help='Path to configuration file for watched files')
+    parser.add_argument('--storePath', default='./backup', help='Path to store backups under')
+    parser.add_argument('--list', action='store_true', help='List all files currently being watched')
+    parser.add_argument('--add', help='Add a new file to be watched')
+    parser.add_argument('--delete', help='Removes a file from the list of watched files')
 
     args = parser.parse_args()
 

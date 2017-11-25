@@ -7,7 +7,7 @@ class WatchingFIle:
     def __init__(self, storePath, path):
         self.storePath = storePath
         self.path = path
-        self.filename = os.path.basename(path).decode("utf-8")
+        self.filename = os.path.basename(path).decode('utf-8')
 
     def getStorePath(self):
         return self.storePath

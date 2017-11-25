@@ -11,4 +11,5 @@ class CopyService:
 
     def updateModicationDate(self, file):
         FileIO().writeFileLine(file.getStoredLastModificationTimePath(), file.getLastModificationTime())
+        print('Backed up: ' + file.getPath().decode('UTF-8'))
 

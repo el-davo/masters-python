@@ -17,7 +17,7 @@ class FileIO:
 
         itemsfile = open(file, 'w')
         for line in lines:
-            itemsfile.write(str(line))
+            itemsfile.write(line.decode('utf-8'))
             itemsfile.write("\n")
 
         itemsfile.close()
@@ -27,4 +27,5 @@ class FileIO:
             os.makedirs(dir)
 
     def getFileLastModificationTime(self, file):
-        return os.path.getmtime(file.getPath())
+        timestamp = os.path.getmtime(file.getPath())
+        return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')

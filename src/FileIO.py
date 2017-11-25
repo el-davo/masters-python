@@ -22,10 +22,16 @@ class FileIO:
 
         itemsfile.close()
 
+    def writeFileLine(self, file, txt):
+        itemsfile = open(file, 'w')
+        itemsfile.write(txt)
+        itemsfile.write("\n")
+        itemsfile.close()
+
     def createDirIfNotExists(self, dir):
         if not os.path.exists(dir):
             os.makedirs(dir)
 
-    def getFileLastModificationTime(self, file):
-        timestamp = os.path.getmtime(file.getPath())
+    def getFileLastModificationTime(self, path):
+        timestamp = os.path.getmtime(path)
         return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')

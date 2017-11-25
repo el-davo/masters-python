@@ -41,6 +41,17 @@ class FileIO:
     def fileExists(self, file):
         return os.path.exists(file)
 
+    def removeLineFromFile(self, file, removeLine):
+        r = open(file, 'rt')
+        lines = r.readlines()
+        r.close()
+
+        w = open(file, 'wt')
+        for line in lines:
+            if line.strip('\n') != removeLine:
+                w.write(line)
+        w.close()
+
     def createDirIfNotExists(self, dir):
         if not os.path.exists(dir):
             os.makedirs(dir)

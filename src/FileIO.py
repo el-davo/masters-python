@@ -13,7 +13,6 @@ class FileIO:
 
             return lines
         except IOError:
-            print('Error: File does not appear to exist')
             return None
 
     def copyFile(self, src, dst):

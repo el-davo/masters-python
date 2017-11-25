@@ -2,6 +2,7 @@ from FileIO import FileIO
 from WatchingFile import WatchingFIle
 
 class ConfigurationService:
+
     def getFilesToWatch(self, storePath, configFile):
         files = FileIO().readFileLines(configFile)
         watchingFiles = []
@@ -18,8 +19,10 @@ class ConfigurationService:
     def addToWatchingFiles(self, configFile, file):
         if FileIO().fileExists(file):
             FileIO().addLineToFile(configFile, file)
+            print('File has been successfully added, we will monitor for changes')
         else:
-            print('File does not exist')
+            print('Unable to add, File does not exist')
 
     def removeWatchingFile(self, configFile, removeLine):
         FileIO().removeLineFromFile(configFile, removeLine)
+        print('File has been removed')

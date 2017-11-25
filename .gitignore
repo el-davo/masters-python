@@ -1,2 +1,3 @@
 .vscode/
 src/**/*.pyc
+.idea/

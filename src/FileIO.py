@@ -4,14 +4,17 @@ import os
 class FileIO:
 
     def readFileLines(self, file):
+        try:
+            openFile = open(file, 'r')
+            lines = []
 
-        openFile = open(file, 'r')
-        lines = []
+            for line in openFile:
+                lines.append(line.rstrip('\r\n').encode('utf-8'))
 
-        for line in openFile:
-            lines.append(line.rstrip('\r\n').encode('utf-8'))
-
-        return lines
+            return lines
+        except IOError:
+            print('Error: File does not appear to exist')
+            return None
 
     def writeFileLines(self, file, lines):
 

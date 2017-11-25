@@ -8,6 +8,9 @@ from CopyService import CopyService
 def list(args):
     ConfigurationService().listWatchingFiles(args.config)
 
+def add(args):
+    ConfigurationService().addToWatchingFiles(args.config, args.add)
+
 def backup(args):
     watching = ConfigurationService().getFilesToWatch(args.storePath, args.config)
 
@@ -20,11 +23,14 @@ def main(args=None):
     parser.add_argument("--config", default='config.dat')
     parser.add_argument("--storePath", default='.')
     parser.add_argument("--list", action = "store_true")
+    parser.add_argument("--add")
 
     args = parser.parse_args()
 
     if args.list:
         list(args)
+    elif args.add:
+        add(args)
     else:
         backup(args)
 

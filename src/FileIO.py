@@ -1,8 +1,8 @@
 import datetime
 import os
+import shutil
 
 class FileIO:
-
     def readFileLines(self, file):
         try:
             openFile = open(file, 'r')
@@ -15,6 +15,9 @@ class FileIO:
         except IOError:
             print('Error: File does not appear to exist')
             return None
+
+    def copyFile(self, src, dst):
+        shutil.copy2(src, dst)
 
     def writeFileLines(self, file, lines):
 
@@ -30,6 +33,13 @@ class FileIO:
         itemsfile.write(txt)
         itemsfile.write("\n")
         itemsfile.close()
+
+    def addLineToFile(self, file, newLine):
+        with open(file, 'a') as appendFile:
+            appendFile.write('\n' + newLine)
+
+    def fileExists(self, file):
+        return os.path.exists(file)
 
     def createDirIfNotExists(self, dir):
         if not os.path.exists(dir):

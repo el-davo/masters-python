@@ -11,8 +11,6 @@ def main(args=None):
     parser.add_argument("--storePath", default='.')
     args = parser.parse_args()
 
-    print('Hello')
-
     watching = ConfigurationService().getFilesToWatch(args.storePath, args.config)
 
     for file in watching:

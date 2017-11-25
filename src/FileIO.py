@@ -37,4 +37,4 @@ class FileIO:
 
     def getFileLastModificationTime(self, path):
         timestamp = os.path.getmtime(path)
-        return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H-%M-%S')

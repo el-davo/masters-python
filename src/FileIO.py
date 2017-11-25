@@ -1,7 +1,6 @@
 import datetime
 import os
-from shutil import copyfile
-
+import shutil
 
 class FileIO:
     def readFileLines(self, file):
@@ -18,7 +17,7 @@ class FileIO:
             return None
 
     def copyFile(self, src, dst):
-        copyfile(src, dst)
+        shutil.copy2(src, dst)
 
     def writeFileLines(self, file, lines):
 

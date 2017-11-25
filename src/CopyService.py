@@ -1,14 +1,13 @@
+import os.path
 from FileIO import FileIO
-import hashlib
 
 class CopyService:
 
-    def copyFiles(self, pathTo, filesFrom):
-        for file in watchingFiles:
-            print(file)
-            fileLines = FileIO().readFileLines(file)
-            FileIO().writeFileLines()
+    def copyFileSnapshot(self, pathTo, file):
+        fileLines = FileIO().readFileLines(file.getPath())
+        copyPath = os.path.join(pathTo, file.getPathHash(), FileIO().getFileLastModificationTime(file))
 
-    def generateFileHash(self, file):
-        return hashlib.sha224(file).hexdigest()
-        
+        FileIO().createDirIfNotExists(copyPath)
+
+        FileIO().writeFileLines(os.path.join(copyPath, file.getFilename), fileLines)
+

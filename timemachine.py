@@ -1,9 +1,10 @@
-import os.path, sys
+import sys
 import argparse
-import hashlib
+
 sys.path.insert(0, "./src")
-from FileIO import FileIO
+from ConfigurationService import ConfigurationService
 from CopyService import CopyService
+
 
 def main(args=None):
     parser = argparse.ArgumentParser()
@@ -11,9 +12,11 @@ def main(args=None):
     parser.add_argument("--storePath", default='.')
     args = parser.parse_args()
 
-    watchingFiles = FileIO().readFileLines(args.config)
+    watching = ConfigurationService().getFilesToWatch(args.config)
 
-    CopyService().copyFiles(args.storePath, watchingFiles)
+    for file in watching:
+        CopyService().copyFileSnapshot(args.storePath, file)
+
 
 if __name__ == "__main__":
     main()

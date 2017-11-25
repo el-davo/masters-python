@@ -17,6 +17,13 @@ def delete(args):
 def backup(args):
     BackupService().backup(args.storePath, args.config)
 
+"""
+Entry point for parsing arguments
+
+command 
+
+    python3 ./timemachine.py --help
+"""
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', default='config.dat', help='Path to configuration file for watched files')

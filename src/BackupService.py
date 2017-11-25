@@ -2,6 +2,9 @@ from ConfigurationService import ConfigurationService
 from CopyService import CopyService
 from FileIO import FileIO
 
+"""
+Service which handles backups
+"""
 class BackupService:
 
     def backup(self, storePath, config):

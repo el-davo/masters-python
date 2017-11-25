@@ -1,12 +1,16 @@
 import hashlib
-from os.path import basename
+import os.path
 from FileIO import FileIO
 
 class WatchingFIle:
 
-    def __init__(self, path):
+    def __init__(self, storePath, path):
+        self.storePath = storePath
         self.path = path
-        self.filename = basename(path).decode("utf-8")
+        self.filename = os.path.basename(path).decode("utf-8")
+
+    def getStorePath(self):
+        return self.storePath
 
     def getPath(self):
         return self.path
@@ -17,5 +21,20 @@ class WatchingFIle:
     def getLastModificationTime(self):
         return FileIO().getFileLastModificationTime(self.getPath())
 
+    def getStoredLastModificationTimePath(self):
+        return os.path.join(self.getStorePath(), self.getPathHash(), 'last-modification-date.txt')
+
+    def getStoredLastModificationTime(self):
+        try:
+            return FileIO().readFileLines(self.getStoredLastModificationTimePath())[0].decode('UTF-8')
+        except:
+            return ''
+
     def getPathHash(self):
         return hashlib.sha224(self.path).hexdigest()
+
+    def isFileChanged(self):
+        print(self.getStoredLastModificationTime() != self.getLastModificationTime())
+        print(self.getStoredLastModificationTime())
+        print(self.getLastModificationTime())
+        return self.getStoredLastModificationTime() != self.getLastModificationTime()

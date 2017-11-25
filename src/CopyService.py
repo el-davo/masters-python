@@ -3,14 +3,13 @@ from FileIO import FileIO
 
 class CopyService:
 
-    def copyFileSnapshot(self, pathTo, file):
+    def copyFileSnapshot(self, file):
         fileLines = FileIO().readFileLines(file.getPath())
-        copyPath = os.path.join(pathTo, file.getPathHash(), file.getLastModificationTime())
+        copyPath = os.path.join(file.getStorePath(), file.getPathHash(), file.getLastModificationTime())
         FileIO().createDirIfNotExists(copyPath)
         FileIO().writeFileLines(os.path.join(copyPath, file.getFilename()), fileLines)
-        self.updateModicationDate(pathTo, file)
+        self.updateModicationDate(file)
 
-    def updateModicationDate(self, pathTo, file):
-        path = os.path.join(pathTo, file.getPathHash())
-        FileIO().writeFileLine(os.path.join(path, 'last-modifaction-date.txt'), file.getLastModificationTime())
+    def updateModicationDate(self, file):
+        FileIO().writeFileLine(file.getStoredLastModificationTimePath(), file.getLastModificationTime())
 

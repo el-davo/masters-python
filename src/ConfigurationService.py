@@ -10,3 +10,8 @@ class ConfigurationService:
             watchingFiles.append(WatchingFIle(storePath, file))
 
         return watchingFiles
+
+    def listWatchingFiles(self, configFile):
+        files = FileIO().readFileLines(configFile)
+        for file in files:
+            print(file.decode('UTF-8'))

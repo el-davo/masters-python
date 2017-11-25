@@ -34,7 +34,4 @@ class WatchingFIle:
         return hashlib.sha224(self.path).hexdigest()
 
     def isFileChanged(self):
-        print(self.getStoredLastModificationTime() != self.getLastModificationTime())
-        print(self.getStoredLastModificationTime())
-        print(self.getLastModificationTime())
         return self.getStoredLastModificationTime() != self.getLastModificationTime()

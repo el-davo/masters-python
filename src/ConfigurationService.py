@@ -20,3 +20,6 @@ class ConfigurationService:
             FileIO().addLineToFile(configFile, file)
         else:
             print('File does not exist')
+
+    def removeWatchingFile(self, configFile, removeLine):
+        FileIO().removeLineFromFile(configFile, removeLine)

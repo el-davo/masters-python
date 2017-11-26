@@ -1,7 +1,8 @@
 import sys
 import argparse
+import os.path
 
-sys.path.insert(0, "./src")
+sys.path.insert(0, os.path.join(sys.path[0], 'src'))
 from ConfigurationService import ConfigurationService
 from BackupService import BackupService
 

@@ -1,0 +1,78 @@
+Student Number: R00002267
+
+Time machine Project
+
+
+How does the tool support watching files?
+--------------------------------------------------------
+To get the tool to watch files we will use a cronjob that runs every minute. I have provided a bash script to create the cron task.
+To use the script run the following cmd.
+
+./crontab.sh
+
+This will create a new cronjob that runs every minute and will point to the relevant files needed to run the python script.
+As a pre-requisite make sure you have installed python 3 and python is available on the command line. For example if you run
+the command below you should see the python version number
+
+./python3 --version
+
+
+How does the tool backup files?
+--------------------------------------------------------
+The tool will read from the config.dat unless told otherwise. You can choose your own configuration file using the command below.
+
+./timemachine --config=path/to/config
+
+The tool will read all the lines in the provided config.dat file and these lines will represent a path to a file on disk.
+The tool tool will take a current backup of each file on first run. The backups will be stored in a folder named as a hash of the path.
+The current timestamp will be stored on the root hash folder in a file called - last-modification-date.txt
+If the file has been modified between runs then the tool will backup the new version under a new timestamp folder in the hash path
+and will update the latest timestamp in last-modification-date.txt.
+
+I used the hashlib library in python to create a hash of the filepath using sha224. This seemed like a good idea as it generated
+a unique folder name per file that does not change. And sha224 seems robust enough to not have any collisions in folder names
+
+
+How can I list the files in config.dat?
+--------------------------------------------------------
+You can use the command below
+
+./timemachine --list
+
+This will list the files in the config.dat file. Alternatively you can also give a path the another config file and the tool will list
+the contents of that file. To do this use the command below
+
+./timemachine --list --config=/path/to/custom/config
+
+
+How can I add a new file to config.dat?
+--------------------------------------------------------
+You can use the command below
+
+./timemachine --add=path/to/file
+
+The tool will first check if the file exists. If it does not then the tool will alert the user and will not store the file.
+If however the file does exist then the new file will be added and the user will be alerted.
+You can optionally give the path to another config file and the tool will add your new file to be watched in there.
+Use the command below to achieve this
+
+./timemachine --add=path/to/file --config=/path/to/custom/config
+
+
+How can I remove a file from config.dat?
+--------------------------------------------------------
+You can use the command below
+
+./timemachine --remove=path/to/file
+
+The tool will delete the specified file only if it exists in the config.dat file or the optional config file.
+If it does not exit then the user will be alerted. If it does exist it will be removed and the user will be informed
+of the removal. You can pass in an optional config file using the command below
+
+./timemachine --remove=path/to/file --config=/path/to/custom/config
+
+
+How am I parsing arguments?
+--------------------------------------------------------
+I am using a library called parseargs. This lib is essential when dealing with command line arguments. It makes it very
+easy to deal with all kinds of command line arguments in a few lines of code.

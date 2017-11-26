@@ -30,8 +30,11 @@ class ConfigurationService:
     """
     def addToWatchingFiles(self, configFile, file):
         if FileIO().fileExists(file):
-            FileIO().addLineToFile(configFile, file)
-            print('File has been successfully added, we will monitor for changes')
+            if FileIO().isLineInFile(configFile, file):
+                print('File has not been added to config as it already exists in the config file')
+            else:
+                FileIO().addLineToFile(configFile, file)
+                print('File has been successfully added, we will monitor for changes')
         else:
             print('Unable to add, File does not exist')
 
@@ -39,5 +42,8 @@ class ConfigurationService:
     Removes a file from the list of watched files
     """
     def removeWatchingFile(self, configFile, removeLine):
-        FileIO().removeLineFromFile(configFile, removeLine)
-        print('File has been removed')
+        if FileIO().isLineInFile(configFile, removeLine):
+            FileIO().removeLineFromFile(configFile, removeLine)
+            print('File has been removed')
+        else:
+            print('File is not in config file, Skipping remove')

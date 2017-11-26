@@ -88,3 +88,14 @@ class FileIO:
     def getFileLastModificationTime(self, path):
         timestamp = os.path.getmtime(path)
         return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H-%M-%S')
+
+    """
+    Checks if a line of text appears in a file
+    """
+    def isLineInFile(self, file, search):
+        lines = self.readFileLines(file)
+        for line in lines:
+            if line.decode('UTF-8').strip('\n') == search:
+                return True
+
+        return False

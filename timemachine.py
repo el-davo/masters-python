@@ -11,8 +11,8 @@ def list(args):
 def add(args):
     ConfigurationService().addToWatchingFiles(args.config, args.add)
 
-def delete(args):
-    ConfigurationService().removeWatchingFile(args.config, args.delete)
+def remove(args):
+    ConfigurationService().removeWatchingFile(args.config, args.remove)
 
 def backup(args):
     BackupService().backup(args.storePath, args.config)
@@ -30,7 +30,7 @@ def main():
     parser.add_argument('--storePath', default='./backup', help='Path to store backups under')
     parser.add_argument('--list', action='store_true', help='List all files currently being watched')
     parser.add_argument('--add', help='Add a new file to be watched')
-    parser.add_argument('--delete', help='Removes a file from the list of watched files')
+    parser.add_argument('--remove', help='Removes a file from the list of watched files')
 
     args = parser.parse_args()
 
@@ -38,8 +38,8 @@ def main():
         list(args)
     elif args.add:
         add(args)
-    elif args.delete:
-        delete(args)
+    elif args.remove:
+        remove(args)
     else:
         backup(args)
 
